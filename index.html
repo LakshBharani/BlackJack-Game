@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Jack</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Rubik+Doodle+Shadow&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      button {
+        font-family: "Bungee", cursive;
+      }
+      h1 {
+        font-family: "Rubik Doodle Shadow", cursive;
+      }
+      p {
+        font-family: "Bungee", cursive;
+      }
+    </style>
+    <script src="blackjack.js"></script>
+  </head>
+  <body class="flex flex-col items-center bg-green-900 p-5">
+    <h1 class="text-white text-4xl font-semibold" id="intro-1">
+      Welcome to the Black Jack Game!
+    </h1>
+    <h1 class="text-white text-sm font-semibold" id="intro-2">
+      The goal is to get as close to 21 as possible without going over
+    </h1>
+
+    <h1 class="text-2xl text-white my-5 hidden" id="dealer-header">
+      Dealer: <span id="dealer-sum"></span>
+    </h1>
+
+    <img
+      class="absolute top-[100px] h-64 w-40 transition-all duration-500 ease-in-out transform"
+      id="deck-cards-0"
+      src="./cards/BACK.png"
+    />
+    <img
+      class="absolute top-[100px] h-64 w-40 transition-all duration-500 ease-in-out transform"
+      id="deck-cards-1"
+      src="./cards/BACK.png"
+    />
+    <img
+      class="absolute top-[100px] h-64 w-40 transition-all duration-500 ease-in-out transform"
+      id="deck-cards-2"
+      src="./cards/BACK.png"
+    />
+
+    <div
+      class="flex flex-row space-x-2 justify-center opacity-100"
+      id="dealer-cards"
+    >
+      <img class="h-64 w-40 my-5" id="hidden-card-1" src="./cards/BACK.png" />
+    </div>
+
+    <div
+      class="flex flex-row space-x-2 justify-center hidden h-64"
+      id="dealer-cards-placeholder"
+    ></div>
+
+    <button
+      class="h-9 w-40 text-black rounded-sm animate-bounce"
+      id="play-button"
+      style="
+        background-image: url('assets/button-bg.png');
+        background-size: cover;
+      "
+    >
+      <p class="text-xs font-extrabold">START GAME</p>
+    </button>
+
+    <div
+      class="flex flex-col w-[35rem] h-[21.5rem] mt-3 items-center justify-start pt-8"
+      id="rules-div"
+      style="
+        background-image: url('assets/rules-bg.png');
+        background-size: contain;
+      "
+    >
+      <div class="scale-90 w-[85%]">
+        <p class="font-semibold">1. Objective:</p>
+        <p class="text-sm">
+          Beat the dealer by having a hand value closest to 21 without <br />
+          exceeding it.
+        </p>
+        <p class="font-semibold">2. Card Values:</p>
+        <p class="text-sm">
+          - Number cards (2-10) hold their face value. <br />
+          - Face cards (J, Q, K) are worth 10. <br />
+          - Aces can be 1 or 11.
+        </p>
+        <p class="font-semibold">3. Player's Options:</p>
+        <p class="text-sm">
+          - Hit: Take an additional card. <br />
+          - Stand: Keep the current hand.
+        </p>
+        <p class="font-semibold">4. Dealer's Turn:</p>
+        <p class="text-sm">Dealer hits until 17 or higher.</p>
+      </div>
+    </div>
+
+    <h1 class="text-2xl text-white my-5 hidden" id="player-header">
+      Player: <span class="hidden" id="player-sum"></span>
+    </h1>
+
+    <div
+      class="flex flex-row space-x-2 justify-center mb-7 hidden"
+      id="player-cards"
+    ></div>
+
+    <div
+      class="flex flex-row space-x-2 justify-center mb-7 h-64 hidden"
+      id="player-cards-placeholder"
+    >
+      <img
+        class="h-64 w-40 opacity-0"
+        id="player-card-placeholder-1"
+        src="./cards/BACK.png"
+      />
+      <img
+        class="h-64 w-40 opacity-0"
+        id="player-card-placeholder-2"
+        src="./cards/BACK.png"
+      />
+    </div>
+
+    <div class="space-x-8 hidden" id="button-bar">
+      <button
+        class="w-28 h-6 text-black scale-110 rounded-sm hover:scale-125"
+        id="hit-button"
+        style="
+          background-image: url('assets/button-bg.png');
+          background-size: cover;
+        "
+      >
+        <p class="text-xs font-extrabold">HIT</p>
+      </button>
+      <button
+        class="w-28 h-6 text-black scale-110 rounded-sm hover:scale-125"
+        id="stand-button"
+        style="
+          background-image: url('assets/button-bg.png');
+          background-size: cover;
+        "
+      >
+        <p class="text-xs font-extrabold">STAND</p>
+      </button>
+    </div>
+    <p class="text-white hidden" id="results"></p>
+
+    <button
+      class="w-28 h-6 text-black scale-110 rounded-sm hover:scale-125 hidden"
+      id="stand-button"
+      style="
+        background-image: url('assets/button-bg.png');
+        background-size: cover;
+      "
+    >
+      <p class="text-xs font-extrabold">STAND</p>
+    </button>
+    <button
+      class="w-28 h-6 text-black scale-110 rounded-sm hover:scale-125 mt-5 hidden"
+      id="exit-button"
+      style="
+        background-image: url('assets/button-bg.png');
+        background-size: cover;
+        font-family: 'Bungee', cursive;
+      "
+    >
+      <p class="text-xs font-extrabold">EXIT TO MENU</p>
+    </button>
+  </body>
+</html>
